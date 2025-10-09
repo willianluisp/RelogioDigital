@@ -1,0 +1,27 @@
+body {
+    background-color: #427aa1;
+    color: #064789;
+    font-family: 'Press Start 2P', cursive;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .clock-container {
+    text-align: center;
+  }
+  
+  /* Título acima do relógio */
+  .titulo {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #064789;  
+}
+  
+  /* Estilo do relógio em si */
+  #clock {
+    font-size: 5rem;
+  }
+  
