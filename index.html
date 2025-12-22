@@ -1,26 +1,50 @@
 <!DOCTYPE html>
+<!-- Define o tipo do documento como HTML5 -->
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Relógio Digital</title>
+<!-- Define o idioma da página como português do Brasil -->
 
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+<head>
+  <!-- Define o conjunto de caracteres (acentos funcionando corretamente) -->
+  <meta charset="UTF-8">
+
+  <!-- Título que aparece na aba do navegador -->
+  <title>Relógio Digital</title>
   
+  <!-- Importa a fonte pixelada do Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <!-- Importa os ícones do Google (Material Icons) -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Conecta o arquivo CSS externo -->
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <!-- Container principal -->
+
+  <!-- Container principal que centraliza todo o conteúdo -->
   <div class="clock-container">
-    
+
     <!-- Título do relógio -->
     <h2 class="titulo">Relógio Digital</h2>
 
-    <!-- Relógio em tempo real -->
-    <h1 id="clock">00:00:00</h1>
+    <!-- Botão para alternar entre tema claro e escuro -->
+    <!-- O ícone muda via JavaScript -->
+    <button id="theme-toggle" aria-label="Alternar tema">
+      <span class="material-icons">light_mode</span>
+    </button>
+
+    <!-- Card que envolve o relógio -->
+    <div class="card">
+      <!-- Horário exibido dinamicamente pelo JavaScript -->
+      <h1 id="clock">00:00:00</h1>
+    </div>
+
   </div>
 
-  <!-- Script JS -->
+  <!-- Importa o arquivo JavaScript -->
+  <!-- Responsável pelo relógio e troca de tema -->
   <script src="script.js"></script>
+
 </body>
 </html>

@@ -1,27 +1,169 @@
-body {
-    background-color: #427aa1;
-    color: #064789;
-    font-family: 'Press Start 2P', cursive;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
-  
-  .clock-container {
-    text-align: center;
-  }
-  
-  /* Título acima do relógio */
-  .titulo {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    color: #064789;  
+/* =========================
+   VARIÁVEIS DE TEMA
+ */
+
+/* 
+  :root representa o elemento raiz do documento (<html>)
+  As variáveis declaradas aqui ficam disponíveis para todo o CSS.
+  Este é o TEMA ESCURO (padrão do site).
+*/
+:root {
+  --bg-color: #0f172a;     /* Cor de fundo da página */
+  --text-color: #7dd3fc;   /* Cor padrão dos textos */
+  --card-bg: #020617;      /* Cor do fundo interno do card */
+  --clock-color: #67e8f9;  /* Cor do texto do relógio */
+  --glow-color: #22d3ee;   /* Cor do brilho (glow) do relógio */
 }
-  
-  /* Estilo do relógio em si */
-  #clock {
-    font-size: 5rem;
+
+/* 
+  Quando o body recebe a classe "light",
+  essas variáveis sobrescrevem as do :root,
+  ativando o TEMA CLARO.
+*/
+body.light {
+  --bg-color: #e0f2fe;     /* Fundo claro da página */
+  --text-color: #075985;  /* Texto azul escuro */
+  --card-bg: #ffffff;     /* Fundo branco do card */
+  --clock-color: #0369a1; /* Cor do relógio no tema claro */
+  --glow-color: #38bdf8;  /* Brilho azul claro */
+}
+
+/* =========================
+   ESTILO GERAL DA PÁGINA
+ */
+
+body {
+  /* Usa as variáveis do tema ativo */
+  background-color: var(--bg-color);
+  color: var(--text-color);
+
+  /* Fonte pixelada importada do Google Fonts */
+  font-family: 'Press Start 2P', cursive;
+
+  /* Centraliza todo o conteúdo na tela */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Altura total da tela */
+  height: 100vh;
+
+  /* Remove margens padrão do navegador */
+  margin: 0;
+
+  /* Anima suavemente a troca de tema */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Container que envolve título, botão e card */
+.clock-container {
+  text-align: center; /* Centraliza textos e elementos */
+}
+
+/* =========================
+   TÍTULO
+*/
+
+.titulo {
+  font-size: 2rem;         /* Tamanho do texto */
+  margin-bottom: 20px;    /* Espaço abaixo do título */
+  color: var(--text-color); /* Usa a cor do tema */
+}
+
+/* =========================
+   BOTÃO DE TEMA
+ */
+
+#theme-toggle {
+  background: none;        /* Remove fundo padrão do botão */
+  border: none;            /* Remove borda padrão */
+  cursor: pointer;         /* Mostra o cursor de clique */
+  margin-bottom: 20px;     /* Espaço abaixo do botão */
+  color: var(--text-color);/* Cor do ícone conforme o tema */
+  font-size: 32px;         /* Tamanho do ícone */
+  transition: transform 0.3s ease; /* Animação suave */
+}
+
+/* Efeito ao passar o mouse no botão */
+#theme-toggle:hover {
+  transform: scale(1.2);   /* Aumenta levemente o ícone */
+}
+
+/* =========================
+   CARD DO RELÓGIO
+*/
+
+.card {
+  position: relative;      /* Necessário para ::before e ::after */
+  display: flex;           /* Centraliza o relógio */
+  width: 500px;            /* Largura do card */
+  height: 150px;           /* Altura do card */
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;        /* Esconde partes fora do card */
+  border-radius: 20px;     /* Bordas arredondadas */
+}
+
+/* 
+  ::before cria a BORDA ANIMADA
+  Ela gira atrás do conteúdo do card
+*/
+.card::before {
+  content: '';             /* Necessário para o pseudo-elemento existir */
+  position: absolute;
+  width: 300px;            /* Largura da faixa animada */
+  height: 300%;            /* Altura grande para cobrir ao girar */
+  background-image: linear-gradient(
+    180deg,
+    #7c3aed,               /* Roxo */
+    #2563eb,               /* Azul */
+    #22d3ee                /* Ciano */
+  );
+  animation: animate 4s linear infinite; /* Rotação contínua */
+}
+
+/* 
+  ::after cria o FUNDO INTERNO do card
+  Ele fica acima da borda e abaixo do relógio
+*/
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 5px;              /* Espaçamento interno */
+  background: var(--card-bg); /* Cor conforme o tema */
+  border-radius: 15px;
+  z-index: 1;              /* Camada intermediária */
+  transition: background-color 0.3s ease;
+}
+
+/* =========================
+   RELÓGIO
+*/
+
+#clock {
+  font-size: 3rem;         /* Tamanho da hora */
+  color: var(--clock-color); /* Cor do texto do relógio */
+  position: relative;
+  z-index: 2;              /* Fica acima do fundo do card */
+
+  /* Efeito de brilho (neon leve) */
+  text-shadow:
+    0 0 5px var(--glow-color),
+    0 0 10px var(--glow-color);
+
+  /* Anima a troca de cor ao mudar o tema */
+  transition: color 0.3s ease;
+}
+
+/* ========================= 
+   ANIMAÇÃO DA BORDA
+*/
+
+@keyframes animate {
+  from {
+    transform: rotate(0deg);   /* Início da rotação */
   }
-  
+  to {
+    transform: rotate(360deg); /* Rotação completa */
+  }
+}
